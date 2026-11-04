@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import '../../core/constants/app_constants.dart';
 import '../../core/utils/date_formatter.dart';
 import '../../data/models/permission_model.dart';
 import '../providers/permission_provider.dart';
-import 'home_screen.dart';
 
 class PermissionScreen extends StatefulWidget {
   const PermissionScreen({super.key});
@@ -76,7 +76,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 16),
-                const Text("Form Pengajuan Izin", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1A008F)), textAlign: TextAlign.center),
+                const Text("Form Pengajuan Izin", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppConstants.primaryColor), textAlign: TextAlign.center),
                 const SizedBox(height: 32),
                 TextFormField(controller: _nameController, decoration: const InputDecoration(labelText: 'Nama Lengkap', border: OutlineInputBorder(), prefixIcon: Icon(Icons.person)), validator: (v) => v?.isEmpty ?? true ? 'Required' : null),
                 const SizedBox(height: 16),
@@ -89,7 +89,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                 Consumer<PermissionProvider>(builder: (context, provider, child) {
                   return ElevatedButton(
                     onPressed: provider.isLoading ? null : _submitPermission,
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1A008F), foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                    style: ElevatedButton.styleFrom(backgroundColor: AppConstants.primaryColor, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
                     child: provider.isLoading ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, valueColor: AlwaysStoppedAnimation<Color>(Colors.white))) : const Text('Submit Permission', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   );
                 }),

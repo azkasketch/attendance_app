@@ -4,7 +4,7 @@ A Flutter-based smart attendance application for students with face detection, g
 
 ## Features
 
-- **Face Detection Attendance**: Capture selfie with AI-powered face detection using Google ML Kit (simplified)
+- **Face Detection Attendance**: Capture selfie with AI-powered face detection using Google ML Kit
 - **Geolocation Tracking**: Automatically capture and store GPS coordinates
 - **Address Resolution**: Convert coordinates to readable addresses using geocoding
 - **Permission/Leave Management**: Submit leave requests with date range selection
@@ -65,14 +65,11 @@ lib/
 - **Language**: Dart
 - **State Management**: Provider ^6.1.1
 - **Local Database**: Hive ^2.2.3 (NoSQL)
-- **Face Detection**: Google ML Kit Face Detection ^0.12.0 (simplified)
+- **Face Detection**: Google ML Kit Face Detection ^0.12.0
 - **Camera**: Camera ^0.11.0+2
 - **Location**: Geolocator ^13.0.2 & Geocoding ^3.0.0
 - **Code Generation**: build_runner & hive_generator
-- **UI Components**: 
-  - Material Design 3
-  - Lottie animations
-  - Dotted border for camera frame
+- **UI Components**: Material Design 3
 
 ## Setup Instructions
 
@@ -99,10 +96,6 @@ flutter pub get
 ```bash
 flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
-
-4. Add required assets (optional):
-   - Place icons in `assets/images/`
-   - Place Lottie animation in `assets/raw/`
 
 5. Run the app:
 ```bash
@@ -170,13 +163,12 @@ flutter run
 - No server/backend required
 - Easy backup (export database file)
 
-### Simplified Face Detection
-- Fast mode for better performance
-- Disabled unnecessary features (classification, landmarks)
-- Simple helper class API
+### Face Detection
+- Uses Google ML Kit for face detection
+- Helper class API for simplified integration
 - Graceful error handling
 
-### Simplified Geocoding
+### Geocoding
 - Helper class for location operations
 - Fallback to coordinates if geocoding fails
 - Simple error handling

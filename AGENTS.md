@@ -45,22 +45,24 @@ dart format .
 - `geolocator`: ^13.0.2 - GPS location
 - `geocoding`: ^3.0.0 - Address from coordinates
 - `google_mlkit_face_detection`: ^0.12.0 - Face detection AI
-- `cloud_firestore`: ^5.6.3 - Firebase database
-- `firebase_core`: ^3.11.0 - Firebase core
-- `lottie`: ^3.3.1 - Animations
-- `dotted_border`: ^2.1.0 - UI component
+- `hive`: ^2.2.3 - Local NoSQL database
+- `hive_flutter`: ^1.1.0 - Hive Flutter integration
+- `provider`: ^6.1.1 - State management
+- `path_provider`: ^2.1.2 - File system access
+- `uuid`: ^4.3.3 - Unique ID generation
+- `intl`: ^0.20.1 - Date/time formatting
 
-## Firebase Configuration
+## Database Configuration
 
-- Project ID: idn-attendance-app-6ceac
-- Collection: attendance
-- Fields: name, address, description, datetime, latitude, longitude, type, created_at
+- **Database**: Hive (local NoSQL)
+- **Box names**: attendance, permission
+- **Storage**: Local device storage
+- **Offline-first**: No server required
 
 ## Important Notes
 
-- Firebase credentials are now in `lib/config/firebase_config.dart`
-- Use environment variables for production deployment
 - Assets are optional - app has fallbacks for missing assets
 - All screens are now complete StatefulWidgets
 - Face detection requires front camera
 - GPS requires internet for geocoding
+- Hive adapters must be generated with build_runner

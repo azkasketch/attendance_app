@@ -5,12 +5,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import '../../core/constants/app_constants.dart';
 import '../../core/utils/date_formatter.dart';
 import '../../core/utils/location_helper.dart';
 import '../../core/utils/face_detection_helper.dart';
 import '../../data/models/attendance_model.dart';
 import '../providers/attendance_provider.dart';
-import 'home_screen.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -156,7 +156,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () => setState(() => capturedImage = null),
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1A008F), foregroundColor: Colors.white),
+                style: ElevatedButton.styleFrom(backgroundColor: AppConstants.primaryColor, foregroundColor: Colors.white),
                 child: const Text('Lanjut Tanpa Foto'),
               ),
             ],
@@ -174,7 +174,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             icon: const Icon(Icons.camera_alt),
             label: const Text('Take Selfie'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1A008F),
+              backgroundColor: AppConstants.primaryColor,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             ),
@@ -218,7 +218,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: _submitAttendance,
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1A008F), foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16)),
+            style: ElevatedButton.styleFrom(backgroundColor: AppConstants.primaryColor, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16)),
             child: const Text('Submit', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ],

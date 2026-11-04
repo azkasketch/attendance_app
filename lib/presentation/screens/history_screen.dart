@@ -17,8 +17,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<AttendanceProvider>().loadAttendance();
-      context.read<PermissionProvider>().loadPermissions();
+      if (mounted) {
+        context.read<AttendanceProvider>().loadAttendance();
+        context.read<PermissionProvider>().loadPermissions();
+      }
     });
   }
 

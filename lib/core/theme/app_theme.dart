@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/app_constants.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -6,12 +7,12 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.blueAccent,
-        primary: const Color(0xFF1A008F),
+        primary: AppConstants.primaryColor,
       ),
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: const AppBarTheme(
         elevation: 0,
-        backgroundColor: Color(0xFF1A008F),
+        backgroundColor: AppConstants.primaryColor,
         foregroundColor: Colors.white,
         centerTitle: true,
         titleTextStyle: TextStyle(

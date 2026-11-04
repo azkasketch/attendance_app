@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/app_constants.dart';
 import 'attendance_screen.dart';
 import 'permission_screen.dart';
 import 'history_screen.dart';
@@ -24,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1A008F),
+                  color: AppConstants.primaryColor,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -88,7 +89,7 @@ class HomeScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         height: 48,
-        color: const Color(0xFF1A008F),
+        color: AppConstants.primaryColor,
         alignment: Alignment.center,
         child: const Text(
           "IDN Boarding School Solo",
@@ -136,13 +137,13 @@ class _HomeMenuCard extends StatelessWidget {
                 width: 64,
                 height: 64,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1A008F).withOpacity(0.1),
+                  color: AppConstants.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   icon,
                   size: 32,
-                  color: const Color(0xFF1A008F),
+                  color: AppConstants.primaryColor,
                 ),
               ),
               const SizedBox(width: 16),
