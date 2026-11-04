@@ -1,6 +1,6 @@
-# Smart Attendance App
+# Absen
 
-A Flutter-based smart attendance application for students with face detection, geolocation, and local database storage using Clean Architecture.
+A modern Flutter-based attendance application with face detection, geolocation, and local database storage using Clean Architecture.
 
 ## Features
 
@@ -218,7 +218,6 @@ This project is for educational purposes.
 
 ## Credits
 
-- IDN Boarding School Solo
 - Flutter Team
 - Google ML Kit
 - Hive Database

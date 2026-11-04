@@ -1,83 +1,204 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_constants.dart';
+import '../widgets/bottom_nav_bar.dart';
 import 'attendance_screen.dart';
 import 'permission_screen.dart';
 import 'history_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const _HomeContent(),
+    const AttendanceScreen(),
+    const PermissionScreen(),
+    const HistoryScreen(),
+  ];
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Attendance - XI RPL"),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
       ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+      ),
+    );
+  }
+}
+
+class _HomeContent extends StatelessWidget {
+  const _HomeContent();
+
+  String _getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor =
+        isDark ? AppConstants.darkBackground : AppConstants.lightBackground;
+    final primaryColor = isDark
+        ? AppConstants.darkPrimary
+        : AppConstants.lightPrimary;
+    final accentColor = isDark
+        ? AppConstants.darkAccent
+        : AppConstants.lightAccent;
+    final secondaryAccent = isDark
+        ? AppConstants.darkSecondaryAccent
+        : AppConstants.lightSecondaryAccent;
+    final textColor = isDark ? AppConstants.darkText : AppConstants.lightText;
+    final textSecondaryColor =
+        isDark ? AppConstants.darkTextSecondary : AppConstants.lightTextSecondary;
+
+    return Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 8),
-              const Text(
-                "Welcome to Attendance App",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: AppConstants.primaryColor,
+              // Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _getGreeting(),
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: textSecondaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Welcome to ${AppConstants.appName}',
+                        style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: textColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [primaryColor, accentColor],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+
+              // Quick Stats Cards
+              Row(
+                children: [
+                  Expanded(
+                    child: _StatCard(
+                      icon: Icons.check_circle,
+                      label: 'Present',
+                      value: '12',
+                      color: accentColor,
+                      isDark: isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _StatCard(
+                      icon: Icons.event_busy,
+                      label: 'Absent',
+                      value: '2',
+                      color: secondaryAccent,
+                      isDark: isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+
+              // Menu Section
+              Text(
+                'Quick Actions',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: textColor,
                 ),
-                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 4),
-              const Text(
-                "Select a menu to proceed",
-                style: TextStyle(fontSize: 14, color: Colors.black54),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               Expanded(
                 child: ListView(
                   children: [
-                    _HomeMenuCard(
+                    _MenuCard(
                       title: "Attendance Record",
-                      subtitle: "Take selfie photo and record your attendance",
-                      icon: Icons.camera_alt,
+                      subtitle: "Take selfie and record attendance",
+                      icon: Icons.camera_alt_rounded,
+                      gradient: LinearGradient(
+                        colors: [primaryColor, accentColor],
+                      ),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AttendanceScreen(),
-                          ),
-                        );
+                        // Navigate via bottom nav - handled by parent
                       },
                     ),
                     const SizedBox(height: 16),
-                    _HomeMenuCard(
+                    _MenuCard(
                       title: "Permission / Leave",
-                      subtitle: "Submit leave request for sick or permission",
-                      icon: Icons.event_note,
+                      subtitle: "Submit leave request",
+                      icon: Icons.event_note_rounded,
+                      gradient: LinearGradient(
+                        colors: [primaryColor, secondaryAccent],
+                      ),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PermissionScreen(),
-                          ),
-                        );
+                        // Navigate via bottom nav - handled by parent
                       },
                     ),
                     const SizedBox(height: 16),
-                    _HomeMenuCard(
+                    _MenuCard(
                       title: "Attendance History",
-                      subtitle: "View and manage all attendance history records",
-                      icon: Icons.history,
+                      subtitle: "View all records",
+                      icon: Icons.history_rounded,
+                      gradient: LinearGradient(
+                        colors: [accentColor, secondaryAccent],
+                      ),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HistoryScreen(),
-                          ),
-                        );
+                        // Navigate via bottom nav - handled by parent
                       },
                     ),
                   ],
@@ -87,63 +208,124 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 48,
-        color: AppConstants.primaryColor,
-        alignment: Alignment.center,
-        child: const Text(
-          "IDN Boarding School Solo",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+    );
+  }
+}
+
+class _StatCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color color;
+  final bool isDark;
+
+  const _StatCard({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+    required this.isDark,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final surfaceColor =
+        isDark ? AppConstants.darkSurface : AppConstants.lightSurface;
+    final textColor = isDark ? AppConstants.darkText : AppConstants.lightText;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: surfaceColor,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
           ),
-        ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: color, size: 24),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: AppConstants.darkTextSecondary,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _HomeMenuCard extends StatelessWidget {
+class _MenuCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
+  final Gradient gradient;
   final VoidCallback onTap;
 
-  const _HomeMenuCard({
+  const _MenuCard({
     required this.title,
     required this.subtitle,
     required this.icon,
+    required this.gradient,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade200),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final surfaceColor =
+        isDark ? AppConstants.darkSurface : AppConstants.lightSurface;
+    final textColor = isDark ? AppConstants.darkText : AppConstants.lightText;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: surfaceColor,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-      color: Colors.white,
       child: InkWell(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20.0),
           child: Row(
             children: [
               Container(
-                width: 64,
-                height: 64,
+                width: 60,
+                height: 60,
                 decoration: BoxDecoration(
-                  color: AppConstants.primaryColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
+                  gradient: gradient,
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: Icon(
                   icon,
-                  size: 32,
-                  color: AppConstants.primaryColor,
+                  size: 28,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(width: 16),
@@ -153,27 +335,28 @@ class _HomeMenuCard extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        fontWeight: FontWeight.w600,
+                        color: textColor,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 12,
-                        color: Colors.black54,
+                        fontWeight: FontWeight.w400,
+                        color: AppConstants.darkTextSecondary,
                       ),
                     ),
                   ],
                 ),
               ),
               const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-                color: Colors.grey,
+                Icons.arrow_forward_ios_rounded,
+                size: 20,
+                color: AppConstants.darkTextSecondary,
               ),
             ],
           ),

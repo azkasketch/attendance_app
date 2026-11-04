@@ -6,7 +6,7 @@ import 'data/repositories/attendance_repository.dart';
 import 'data/repositories/permission_repository.dart';
 import 'presentation/providers/attendance_provider.dart';
 import 'presentation/providers/permission_provider.dart';
-import 'presentation/screens/home_screen.dart';
+import 'presentation/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,10 +28,12 @@ class AttendanceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Attendance App',
+      title: 'Absen',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const HomeScreen(),
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      home: const SplashScreen(),
     );
   }
 }

@@ -5,16 +5,21 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:attendance_app/main.dart';
+import 'package:absen_app/presentation/screens/splash_screen.dart';
 
 void main() {
-  testWidgets('App launches successfully', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const AttendanceApp());
+  testWidgets('Splash screen builds successfully', (WidgetTester tester) async {
+    // Build splash screen
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: SplashScreen(),
+      ),
+    );
 
-    // Verify that the home screen title is displayed.
-    expect(find.text('Attendance - XI RPL'), findsOneWidget);
+    // Verify that the splash screen displays
+    expect(find.text('Smart Attendance'), findsOneWidget);
   });
 }

@@ -1,5 +1,5 @@
-name: attendance_app
-description: "A new Flutter project."
+name: absen_app
+description: "A modern attendance tracking app with face detection and geolocation."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -48,6 +48,10 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.1.2
   uuid: ^4.3.3
+
+  # UI & Branding
+  google_fonts: ^6.1.0
+  lottie: ^3.0.0
 
 dev_dependencies:
   flutter_test:

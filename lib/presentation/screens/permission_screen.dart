@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/utils/date_formatter.dart';
 import '../../data/models/permission_model.dart';
@@ -65,8 +66,30 @@ class _PermissionScreenState extends State<PermissionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor =
+        isDark ? AppConstants.darkBackground : AppConstants.lightBackground;
+    final primaryColor = isDark
+        ? AppConstants.darkPrimary
+        : AppConstants.lightPrimary;
+    final accentColor = isDark
+        ? AppConstants.darkAccent
+        : AppConstants.lightAccent;
+    final textColor = isDark ? AppConstants.darkText : AppConstants.lightText;
+    final textSecondaryColor =
+        isDark ? AppConstants.darkTextSecondary : AppConstants.lightTextSecondary;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Permission / Leave')),
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
+        title: Text(
+          'Permission / Leave',
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
@@ -76,23 +99,158 @@ class _PermissionScreenState extends State<PermissionScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 16),
-                const Text("Form Pengajuan Izin", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppConstants.primaryColor), textAlign: TextAlign.center),
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [primaryColor, accentColor],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: accentColor.withValues(alpha: 0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.event_note_rounded,
+                        size: 48,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        "Form Pengajuan Izin",
+                        style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 32),
-                TextFormField(controller: _nameController, decoration: const InputDecoration(labelText: 'Nama Lengkap', border: OutlineInputBorder(), prefixIcon: Icon(Icons.person)), validator: (v) => v?.isEmpty ?? true ? 'Required' : null),
+                TextFormField(
+                  controller: _nameController,
+                  style: GoogleFonts.poppins(color: textColor),
+                  decoration: InputDecoration(
+                    labelText: 'Nama Lengkap',
+                    labelStyle: GoogleFonts.poppins(color: textSecondaryColor),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    prefixIcon: const Icon(Icons.person),
+                  ),
+                  validator: (v) => v?.isEmpty ?? true ? 'Required' : null,
+                ),
                 const SizedBox(height: 16),
-                TextFormField(controller: _descriptionController, decoration: const InputDecoration(labelText: 'Keterangan', border: OutlineInputBorder(), prefixIcon: Icon(Icons.description)), maxLines: 3, validator: (v) => v?.isEmpty ?? true ? 'Required' : null),
+                TextFormField(
+                  controller: _descriptionController,
+                  style: GoogleFonts.poppins(color: textColor),
+                  decoration: InputDecoration(
+                    labelText: 'Keterangan',
+                    labelStyle: GoogleFonts.poppins(color: textSecondaryColor),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    prefixIcon: const Icon(Icons.description),
+                  ),
+                  maxLines: 3,
+                  validator: (v) => v?.isEmpty ?? true ? 'Required' : null,
+                ),
                 const SizedBox(height: 16),
-                TextFormField(controller: _fromDateController, decoration: InputDecoration(labelText: 'Dari Tanggal', border: const OutlineInputBorder(), prefixIcon: const Icon(Icons.calendar_today), suffixIcon: IconButton(icon: const Icon(Icons.calendar_month), onPressed: () => _pickDate(_fromDateController))), readOnly: true, validator: (v) => v?.isEmpty ?? true ? 'Required' : null),
+                TextFormField(
+                  controller: _fromDateController,
+                  style: GoogleFonts.poppins(color: textColor),
+                  decoration: InputDecoration(
+                    labelText: 'Dari Tanggal',
+                    labelStyle: GoogleFonts.poppins(color: textSecondaryColor),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    prefixIcon: const Icon(Icons.calendar_today),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.calendar_month),
+                      onPressed: () => _pickDate(_fromDateController),
+                    ),
+                  ),
+                  readOnly: true,
+                  validator: (v) => v?.isEmpty ?? true ? 'Required' : null,
+                ),
                 const SizedBox(height: 16),
-                TextFormField(controller: _toDateController, decoration: InputDecoration(labelText: 'Sampai Tanggal', border: const OutlineInputBorder(), prefixIcon: const Icon(Icons.calendar_today), suffixIcon: IconButton(icon: const Icon(Icons.calendar_month), onPressed: () => _pickDate(_toDateController))), readOnly: true, validator: (v) => v?.isEmpty ?? true ? 'Required' : null),
+                TextFormField(
+                  controller: _toDateController,
+                  style: GoogleFonts.poppins(color: textColor),
+                  decoration: InputDecoration(
+                    labelText: 'Sampai Tanggal',
+                    labelStyle: GoogleFonts.poppins(color: textSecondaryColor),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    prefixIcon: const Icon(Icons.calendar_today),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.calendar_month),
+                      onPressed: () => _pickDate(_toDateController),
+                    ),
+                  ),
+                  readOnly: true,
+                  validator: (v) => v?.isEmpty ?? true ? 'Required' : null,
+                ),
                 const SizedBox(height: 32),
-                Consumer<PermissionProvider>(builder: (context, provider, child) {
-                  return ElevatedButton(
-                    onPressed: provider.isLoading ? null : _submitPermission,
-                    style: ElevatedButton.styleFrom(backgroundColor: AppConstants.primaryColor, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                    child: provider.isLoading ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, valueColor: AlwaysStoppedAnimation<Color>(Colors.white))) : const Text('Submit Permission', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  );
-                }),
+                Consumer<PermissionProvider>(
+                  builder: (context, provider, child) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [primaryColor, accentColor],
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: accentColor.withValues(alpha: 0.3),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed:
+                            provider.isLoading ? null : _submitPermission,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: provider.isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor:
+                                      AlwaysStoppedAnimation<Color>(Colors.white),
+                                ),
+                              )
+                            : Text(
+                                'Submit Permission',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
