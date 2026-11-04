@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:attendance_app/ui/attend/attend_screen.dart';
-import 'package:attendance_app/ui/absent/absent_screen.dart';
-import 'package:attendance_app/ui/attendance_history/attendance_history_screen.dart';
+import 'attendance_screen.dart';
+import 'permission_screen.dart';
+import 'history_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -41,13 +41,12 @@ class HomeScreen extends StatelessWidget {
                     _HomeMenuCard(
                       title: "Attendance Record",
                       subtitle: "Take selfie photo and record your attendance",
-                      imagePath: 'assets/images/ic_absen.png',
                       icon: Icons.camera_alt,
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const AttendScreen(),
+                            builder: (context) => const AttendanceScreen(),
                           ),
                         );
                       },
@@ -56,13 +55,12 @@ class HomeScreen extends StatelessWidget {
                     _HomeMenuCard(
                       title: "Permission / Leave",
                       subtitle: "Submit leave request for sick or permission",
-                      imagePath: 'assets/images/ic_leave.png',
                       icon: Icons.event_note,
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const AbsentScreen(),
+                            builder: (context) => const PermissionScreen(),
                           ),
                         );
                       },
@@ -71,14 +69,12 @@ class HomeScreen extends StatelessWidget {
                     _HomeMenuCard(
                       title: "Attendance History",
                       subtitle: "View and manage all attendance history records",
-                      imagePath: 'assets/images/ic_history.png',
                       icon: Icons.history,
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                const AttendanceHistoryScreen(),
+                            builder: (context) => const HistoryScreen(),
                           ),
                         );
                       },
@@ -110,14 +106,12 @@ class HomeScreen extends StatelessWidget {
 class _HomeMenuCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  final String imagePath;
   final IconData icon;
   final VoidCallback onTap;
 
   const _HomeMenuCard({
     required this.title,
     required this.subtitle,
-    required this.imagePath,
     required this.icon,
     required this.onTap,
   });
